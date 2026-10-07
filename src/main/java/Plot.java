@@ -1,8 +1,7 @@
 public class Plot {
 
-    //static mobile home, bungalow, apartment, etc
-
-    //or just be an empty plot/pitch which can be used for a tent, caravan, campervan, motorhome, etc
+    //static mobile home, bungalow, apartment, etc or just be an
+    // empty plot/pitch which can be used for a tent, caravan, campervan, motorhome, etc
 
     /*
     Add a new plot/pitch to a camping area. The following information
