@@ -122,4 +122,9 @@ public class Plot {
                 || value.equalsIgnoreCase("Campervan")
                 || value.equalsIgnoreCase("Motor home");
     }
+
+    @Override
+    public String toString() {
+        return "Plot ID: " + plotID + '\'' + "Name: " + name + '\'' + "Electricity: " + hasPower + '\'' + "Bedrooms: " + bedrooms + '\'' + "Size (m2): " + size + " m2" + '\'' + "Cost (€): " + cost + " per night" + '\'' + "Facilities: " + facilities;
+    }
 }
