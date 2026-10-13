@@ -8,6 +8,11 @@ public class LinkedList<T> {
     private static class Node<T> {
         private T data;
         private Node<T> next;
+
+        public Node(T data) {
+            this.data = data;
+            this.next = null;
+        }
     }
 
     private Node<T> head;
@@ -35,7 +40,7 @@ public class LinkedList<T> {
     }
 
     public void add(T value) {
-        Node<T> newNode = new Node<>();
+        Node<T> newNode = new Node<>(value);
 
         if (head == null) {
             head = newNode;
@@ -49,7 +54,7 @@ public class LinkedList<T> {
     }
 
     public void addFirst(T value) {
-        Node<T> newNode = new Node<>();
+        Node<T> newNode = new Node<>(value);
 
         newNode.next = head;
         head = newNode;
@@ -122,7 +127,7 @@ public class LinkedList<T> {
     }
 
     private void checkIndex(int index) {
-        if (index < 0 || index >= size) {
+        if (index < 0 && index >= size) {
             throw new IndexOutOfBoundsException(
                     "Index: " + index + ", Size: " + size
             );
