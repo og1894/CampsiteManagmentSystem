@@ -390,10 +390,6 @@ public class Booking {
             throw new IllegalArgumentException("The replacement plot is unavailable.");
         }
 
-        if (!assignedPlot.isAvailable(startDate, endDate)) {
-            throw new IllegalArgumentException("The assigned plot is unavailable for the selected dates.");
-        }
-
         Plot previousPlot = assignedPlot;
         String cleanedAreaID = newCampingAreaID.trim();
 
@@ -408,37 +404,6 @@ public class Booking {
         }
         totalCost = calculateTotalCost();
     }
-
-    public void moveBooking(Booking booking, Plot newPlot, String newAreaID) {
-        Plot oldPlot = booking.getAssignedPlot();
-
-        if (!newPlot.isAvailable(booking.getStartDate(), booking.getEndDate())) {
-            throw new IllegalArgumentException("The replacement plot is unavailable.");
-        }
-
-        booking.reassignPlot(newPlot, newAreaID);
-        oldPlot.removeBooking(booking.getBookingID());
-        newPlot.addBooking(booking);
-    }
-
-    /*public VacationRecord completeBooking(Booking booking) {
-        booking.completeBooking();
-
-        VacationRecord record = new VacationRecord(
-                booking.getBookingID(),
-                booking.getGuest().getGuestID(),
-                booking.getCampsiteName(),
-                booking.getCampingAreaID(),
-                booking.getAssignedPlot().getPlotID(),
-                booking.getStartDate(),
-                booking.getEndDate(),
-                booking.getTotalCost()
-        );
-
-        booking.getGuest().addVacationRecord(record);
-
-        return record;
-    }*/
 
     // --------------------------------------------------
     // toString
