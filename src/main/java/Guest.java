@@ -42,8 +42,8 @@ public class Guest {
     // --------------------------------------------------
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
-        if (dateOfBirth.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("Date of birth cannot be in the future.");
+        if (dateOfBirth == null) {
+            throw new IllegalArgumentException("Date of birth cannot be null.");
         }
 
         if (dateOfBirth.isAfter(LocalDate.now())) {

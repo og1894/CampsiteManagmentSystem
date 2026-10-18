@@ -3,8 +3,8 @@ public class Campsite {
     private String campsiteName;
     private String address;
     private int numOfStars;
-    private String phoneNumber = "0000000000";
-    private LinkedList<String> facilities;
+    private String phoneNumber;
+    private String facilities; //(restaurants, swimming pools, shops, spa, gym, WiFi, laundry, medical centre, etc)
     private LinkedList<CampingArea> campingArea;
 
     public Campsite(String campsiteName, String address, int numOfStars, String phoneNumber) {
@@ -13,7 +13,6 @@ public class Campsite {
         setNumOfStars(numOfStars);
         setPhoneNumber(phoneNumber);
         campingArea = new LinkedList<>();
-        facilities = new LinkedList<>();
     }
 
     public void setCampsiteName(String campsiteName) {
@@ -28,7 +27,7 @@ public class Campsite {
     }
 
     public void setNumOfStars(int numOfStars) {
-       if (numOfStars <= 1 && numOfStars >= 5) {
+       if (numOfStars >= 1 && numOfStars <= 5) {
            this.numOfStars = numOfStars;
        }
     }
@@ -58,9 +57,3 @@ public class Campsite {
         return (text.matches("[0-9]+"));
     }
 }
-
-/*
-add new campsite:
-It should also be possible to record facilities available at the campsite, such as:
-restaurants, swimming pools, shops, spa, gym, WiFi, laundry, medical centre, etc.
-*/
