@@ -1,15 +1,20 @@
+import java.time.LocalDate;
+
 public class Guest {
 
     private String name;
-    private int dateOfBirth;
-    private int id = 0;
-    private String phoneNumber = "0000000000";
+    private LocalDate dateOfBirth;
+    private int guestID = 0;
+    private String phoneNumber;
+    private String ancillaryInfo;
 
-    public Guest(String name, int dateOfBirth, int id, String phoneNumber) {
+
+    public Guest(String name, LocalDate dateOfBirth, int guestID, String phoneNumber, String ancillaryInfo) {
         setName(name);
         setDateOfBirth(dateOfBirth);
-        setId(id);
+        setGuestID(guestID);
         setPhoneNumber(phoneNumber);
+        setAncillaryInfo(ancillaryInfo);
     }
 
     public void setName(String name) {
@@ -18,13 +23,13 @@ public class Guest {
         }
     }
 
-    public void setDateOfBirth(int dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setId(int id) {
-        if (id >=0 && id <= 9999)
-            this.id = id;
+    public void setGuestID(int guestID) {
+        if (guestID < 1 || guestID > 9999)
+            this.guestID = guestID;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -32,19 +37,28 @@ public class Guest {
             this.phoneNumber = phoneNumber;
     }
 
+    public void setAncillaryInfo(String ancillaryInfo) {
+        this.ancillaryInfo = ancillaryInfo;
+    }
+
     public String getName() {
         return name;
     }
-    public int getDateOfBirth() {
+
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public int getId() {
-        return id;
+    public int getGuestID() {
+        return guestID;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getAncillaryInformation() {
+        return ancillaryInfo;
     }
 
     private boolean onlyContainsNumbers(String text) {
@@ -53,9 +67,7 @@ public class Guest {
 
     @Override
     public String toString() {
-        return
-                "Guest ID: " + id + ", Guest Name: " + name + ", Guest DOB: " + dateOfBirth + ", Guest Phone: " + phoneNumber;
-
+        return "Guest ID: " + guestID + '\'' + "Guest Name: " + name + '\'' + "Guest DOB: " + dateOfBirth + '\'' + "Guest Phone: " + phoneNumber + '\'' + "Guest Ancillary Info: " + ancillaryInfo;
     }
 }
 
