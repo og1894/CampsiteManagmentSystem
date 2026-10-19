@@ -391,16 +391,16 @@ public class Booking {
         }
 
         Plot previousPlot = assignedPlot;
-        String cleanedAreaID = newCampingAreaID.trim();
+        String previousAreaID = campingAreaID;
 
         assignedPlot = newPlot;
-        campingAreaID = newCampingAreaID;
+        campingAreaID = newCampingAreaID.trim();
 
         if (!assignedPlotMatchesPreferences()) {
             assignedPlot = previousPlot;
-            campingAreaID = cleanedAreaID;
+            campingAreaID = previousAreaID;
 
-            throw new IllegalArgumentException("The replacement plot does not match the original booking preferences.");
+            throw new IllegalArgumentException("The replacement plot does not match " + "the original booking preferences.");
         }
         totalCost = calculateTotalCost();
     }
