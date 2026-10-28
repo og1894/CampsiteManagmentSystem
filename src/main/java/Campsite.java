@@ -356,11 +356,8 @@ public class Campsite {
             }
 
             Plot oldPlot = booking.getAssignedPlot();
-
             booking.reassignPlot(replacementPlot, replacementArea.getCampingAreaID());
-
             oldPlot.removeBooking(booking.getBookingID());
-
             replacementPlot.addBooking(booking);
         }
         return originalArea.removePlot(plotID);
@@ -368,7 +365,6 @@ public class Campsite {
 
     private LinkedList<Booking> getPendingBookings(Plot plot) {
         LinkedList<Booking> pendingBookings = new LinkedList<>();
-
         LinkedList<Booking> plotBookings = plot.getBookings();
 
         for (int i = 0; i < plotBookings.size(); i++) {
@@ -385,7 +381,6 @@ public class Campsite {
 
         for (int i = 0; i < campingAreas.size(); i++) {
             CampingArea area = campingAreas.get(i);
-
             Plot replacement = findReplacementPlot(area, booking, excludedPlot);
 
             if (replacement != null) {
@@ -395,10 +390,9 @@ public class Campsite {
         return null;
     }
 
-    //continue means an "if" statement is skipped in for loop and moves to next "if"
+    //continue skips remainder of current loop iteration and starts next iteration
     private Plot findReplacementPlot(CampingArea area, Booking booking, Plot excludedPlot) {
         LinkedList<Plot> plots = area.getPlots();
-
         Plot bestPlot = null;
 
         for (int i = 0; i < plots.size(); i++) {

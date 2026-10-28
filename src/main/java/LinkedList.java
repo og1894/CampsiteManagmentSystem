@@ -55,7 +55,6 @@ public class LinkedList<T> {
 
     public void addFirst(T value) {
         Node<T> newNode = new Node<>(value);
-
         newNode.next = head;
         head = newNode;
 
@@ -128,9 +127,7 @@ public class LinkedList<T> {
 
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                    "Index: " + index + ", Size: " + size
-            );
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
     }
 }

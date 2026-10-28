@@ -125,7 +125,6 @@ public class CampingArea {
 
     public Plot findSuitablePlot(LocalDate startDate, LocalDate endDate, String preferredPlotType, int numberOfGuests, boolean powerRequired, int minimumSize, int minimumBedrooms, int maximumBudget) {
         validateBookingRequest(startDate, endDate, preferredPlotType, numberOfGuests, minimumSize, minimumBedrooms, maximumBudget);
-
         Plot bestPlot = null;
 
         for (int i = 0; i < plots.size(); i++) {
@@ -187,7 +186,6 @@ public class CampingArea {
         String dwellingType = plot.getDwelling();
         boolean staticTypeMatches = staticType != null && staticType.equalsIgnoreCase(preferredPlotType);
         boolean dwellingTypeMatches = dwellingType != null && dwellingType.equalsIgnoreCase(preferredPlotType);
-
         return staticTypeMatches || dwellingTypeMatches;
     }
 
@@ -215,10 +213,8 @@ public class CampingArea {
         }
 
         Booking booking = new Booking(bookingID, guest, suitablePlot, campsiteName, campingAreaID, startDate, endDate, preferredPlotType, numberOfGuests, powerRequired, minimumSize, minimumBedrooms, maximumBudget);
-
         suitablePlot.addBooking(booking);
         guest.addBooking(booking);
-
         return booking;
     }
 
@@ -262,9 +258,7 @@ public class CampingArea {
         }
 
         Plot assignedPlot = booking.getAssignedPlot();
-
         booking.cancelBooking();
-
         return assignedPlot.removeBooking(bookingID);
     }
 
@@ -312,13 +306,9 @@ public class CampingArea {
             return false;
         }
 
-        //Validate and update the booking first.
         booking.reassignPlot(replacementPlot, campingAreaID);
-
-        //Move the booking between the plot lists.
         oldPlot.removeBooking(bookingID);
         replacementPlot.addBooking(booking);
-
         return true;
     }
 

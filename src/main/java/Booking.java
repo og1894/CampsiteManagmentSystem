@@ -339,7 +339,6 @@ public class Booking {
     private boolean plotTypeMatches() {
         String staticType = assignedPlot.getStaticDwelling();
         String dwellingType = assignedPlot.getDwelling();
-
         boolean matchesStaticType = staticType != null && staticType.equalsIgnoreCase(preferredPlotType);
         boolean matchesDwellingType = dwellingType != null && dwellingType.equalsIgnoreCase(preferredPlotType);
         return matchesStaticType || matchesDwellingType;
@@ -365,7 +364,6 @@ public class Booking {
         if (!isPending()) {
             return false;
         }
-
         return requestedStart.isBefore(endDate) && requestedEnd.isAfter(startDate);
     }
 
@@ -392,7 +390,6 @@ public class Booking {
 
         Plot previousPlot = assignedPlot;
         String previousAreaID = campingAreaID;
-
         assignedPlot = newPlot;
         campingAreaID = newCampingAreaID.trim();
 

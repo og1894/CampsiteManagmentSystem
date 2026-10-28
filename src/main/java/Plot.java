@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 
 public class Plot {
-
     private String plotID;
     private String name;
     private String staticDwelling;
@@ -278,7 +277,6 @@ public class Plot {
     }
 
     public boolean isAvailable(LocalDate requestedStart, LocalDate requestedEnd) {
-
         for (int i = 0; i < bookings.size(); i++) {
             Booking booking = bookings.get(i);
 
