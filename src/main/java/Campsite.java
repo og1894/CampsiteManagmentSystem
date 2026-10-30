@@ -2,7 +2,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class Campsite {
-
     private String name;
     private String address;
     private int numberOfStars;

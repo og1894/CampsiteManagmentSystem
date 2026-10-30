@@ -1,14 +1,12 @@
 import java.time.LocalDate;
 
 public class Guest {
-
     private String name;
     private LocalDate dateOfBirth;
     private int guestID = 0;
     private String phoneNumber;
     private String ancillaryInfo;
     private LinkedList<Booking> bookings;
-
 
     public Guest(String name, LocalDate dateOfBirth, int guestID, String phoneNumber, String ancillaryInfo) {
         bookings = new LinkedList<>();

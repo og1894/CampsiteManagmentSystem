@@ -1,25 +1,3 @@
-/*import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-
-public class AppDriver extends Application {
-
-    @Override
-    public void start(Stage stage) {
-
-        var scene = new Scene(new StackPane(), 640, 480);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
-    }
-
-}*/
-
-//Save and load the entire system data: XML
 //Implement suitable JavaFX graphical user interface to interact with your system.
 //You should implement a set of JUnit classes to test code
 
@@ -32,12 +10,14 @@ public class AppDriver {
     private LinkedList<Campsite> campsites;
     private LinkedList<Guest> guests;
     private int nextBookingID;
+    private XStreamPersistence persistence;
 
     public AppDriver() {
         input = new Scanner(System.in);
         campsites = new LinkedList<>();
         guests = new LinkedList<>();
         nextBookingID = 1;
+        persistence = new XStreamPersistence();
     }
 
     public static void main(String[] args) {
@@ -54,28 +34,33 @@ public class AppDriver {
         System.out.println("CAMPSITE MANAGEMENT SYSTEM");
 
         while (running) {
-        displayMainMenu();
+            displayMainMenu();
 
-        int option = readInteger("Select an option: ");
+            int option = readInteger("Select an option: ");
 
-        while (option != 0) {
-            switch (option) {
-                case 1 -> addCampsite();
-                case 2 -> addCampingArea();
-                case 3 -> addPlot();
-                case 4 -> addGuest();
-                case 5 -> createBooking();
-                case 6 -> cancelBooking();
-                case 7 -> completeBooking();
-                case 8 -> displayCampsites();
-                case 9 -> displayGuests();
-                case 10 -> displayGuestRecord();
-                case 11 -> smartFind();
-                case 12 -> removePlot();
-                case 13 -> resetSystem();
-                case 0 -> running = false;
-                default -> System.out.println("Invalid menu option.");
+            try {
+                switch (option) {
+                    case 1 -> addCampsite();
+                    case 2 -> addCampingArea();
+                    case 3 -> addPlot();
+                    case 4 -> addGuest();
+                    case 5 -> createBooking();
+                    case 6 -> cancelBooking();
+                    case 7 -> completeBooking();
+                    case 8 -> displayCampsites();
+                    case 9 -> displayGuests();
+                    case 10 -> displayGuestRecord();
+                    case 11 -> smartFind();
+                    case 12 -> removePlot();
+                    case 13 -> resetSystem();
+                    case 14 -> saveSystem();
+                    case 15 -> loadSystem();
+                    case 0 -> running = false;
+                    default -> System.out.println("Invalid menu option.");
                 }
+            }
+            catch (IllegalArgumentException | IllegalStateException exception) {
+                System.err.println("Operation failed: " + exception.getMessage());
             }
         }
 
@@ -98,6 +83,8 @@ public class AppDriver {
         System.out.println("11. Smart find");
         System.out.println("12. Remove plot");
         System.out.println("13. Reset system");
+        System.out.println("14. Save system");
+        System.out.println("15. Load system");
         System.out.println("0. Exit");
     }
 
@@ -670,7 +657,6 @@ public class AppDriver {
 
         for (int i = 0; i < campsites.size(); i++) {
             Campsite campsite = campsites.get(i);
-
             System.out.println((i + 1) + ". " + campsite.getName());
         }
 
@@ -760,10 +746,39 @@ public class AppDriver {
             try {
                 return LocalDate.parse(value);
             }
-            catch (DateTimeParseException exception) {
-                System.out.println("Enter the date in YYYY-MM-DD format."
-                );
+            catch (DateTimeParseException exception) {System.out.println("Enter the date in YYYY-MM-DD format.");
             }
+        }
+    }
+
+    //---------------------------------
+    //  Persistence methods
+    // --------------------------------
+    private void saveSystem() {
+        try {
+            SystemData systemData = new SystemData(campsites, guests, nextBookingID);
+            persistence.save(systemData);
+            System.out.println("System saved successfully " + "to campsite-data.xml.");
+        }
+        catch (Exception exception) {
+            System.err.println("Error writing to file: " + exception.getMessage());
+        }
+    }
+
+    private void loadSystem() {
+        try {
+            SystemData loadedData = persistence.load();
+            campsites = loadedData.getCampsites();
+            guests = loadedData.getGuests();
+            nextBookingID = loadedData.getNextBookingID();
+
+            System.out.println("System loaded successfully from campsite-data.xml.");
+            System.out.println("Campsites loaded: " + campsites.size());
+            System.out.println("Guests loaded: " + guests.size());
+            System.out.println("Next booking ID: " + nextBookingID);
+        }
+        catch (Exception exception) {
+            System.err.println("Error reading from file: " + exception.getMessage());
         }
     }
 }
